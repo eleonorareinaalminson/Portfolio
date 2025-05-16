@@ -1,34 +1,40 @@
+// ProjectsAPI/Program.cs
+using Microsoft.EntityFrameworkCore;
+using Portfolio.DataAccessLayer.Data;
+using Portfolio.DataAccessLayer.Repositories;
 
-namespace ProjectsAPI
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+
+// Lägg till CORS för att tillåta anrop från Portfolio.Web
+builder.Services.AddCors(options =>
 {
-    public class Program
+    options.AddPolicy("AllowPortfolioWeb", policy =>
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+        policy.WithOrigins("https://localhost:7114", "http://localhost:5015")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
-            // Add services to the container.
+var app = builder.Build();
 
-            builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
-        }
-    }
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
 }
+
+app.UseHttpsRedirection();
+app.UseCors("AllowPortfolioWeb");
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();
