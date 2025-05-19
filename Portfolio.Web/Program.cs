@@ -1,20 +1,27 @@
-// Program.cs för Portfolio.Web
-using Microsoft.AspNetCore.Identity;
+// Portfolio.Web/Program.cs
 using Microsoft.EntityFrameworkCore;
+using Portfolio.DataAccessLayer.Data;
+using Portfolio.DataAccessLayer.Repositories;
 using Portfolio.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Lägg till Razor Pages
 builder.Services.AddRazorPages();
-builder.Services.AddHttpClient();
+
+// Konfigurera HttpClient för projekttjänsten
 builder.Services.AddHttpClient<ProjectsService>();
+
+// Konfigurera HttpClient för vädertjänsten
+builder.Services.AddHttpClient<WeatherService>();
+
+// Registrera tjänster i DI-containern
 builder.Services.AddScoped<ProjectsService>();
 builder.Services.AddScoped<WeatherService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Konfigurera HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");

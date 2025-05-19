@@ -5,36 +5,47 @@ using Portfolio.DataAccessLayer.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Lägg till controllers
+builder.Services.AddControllers();
+
+// Konfigurerar databaskontexten
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Registrera repositories
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
 
-// Lägg till CORS för att tillåta anrop från Portfolio.Web
+// Konfigurera CORS för att tillåta anrop från Portfolio.Web
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowPortfolioWeb", policy =>
-    {
-        policy.WithOrigins("https://localhost:7114", "http://localhost:5015")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
+    options.AddPolicy("AllowPortfolioWeb",
+        policy => policy
+            .WithOrigins("https://localhost:7114", "http://localhost:5015")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Konfigurera HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
+
 app.UseCors("AllowPortfolioWeb");
+
 app.UseAuthorization();
+
 app.MapControllers();
+
+// Skapa och migrera databasen vid uppstart
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.Migrate();
+}
 
 app.Run();
