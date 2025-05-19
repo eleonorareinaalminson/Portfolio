@@ -1,18 +1,14 @@
-// ProjectsAPI/Program.cs
 using Microsoft.EntityFrameworkCore;
 using Portfolio.DataAccessLayer.Data;
 using Portfolio.DataAccessLayer.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Lägg till controllers
 builder.Services.AddControllers();
 
-// Konfigurerar databaskontexten
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Registrera repositories
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
 // Konfigurera CORS för att tillåta anrop från Portfolio.Web
@@ -27,7 +23,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Konfigurera HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
