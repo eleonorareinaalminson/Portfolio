@@ -250,10 +250,10 @@ section {
         transform: translateY(-3px);
     }
 
-        /* Specifika färger för sociala medier när de hovras över */
+        /* Specifika fÃ¤rger fÃ¶r sociala medier nÃ¤r de hovras Ã¶ver */
         .social-links a:hover .bi-facebook,
         footer a:hover .bi-facebook {
-            color: #1877F2; /* Facebook-blå */
+            color: #1877F2; /* Facebook-blÃ¥ */
         }
 
         .social-links a:hover .bi-instagram,
@@ -268,7 +268,7 @@ section {
 
         .social-links a:hover .bi-linkedin,
         footer a:hover .bi-linkedin {
-            color: #0A66C2; /* LinkedIn-blå */
+            color: #0A66C2; /* LinkedIn-blÃ¥ */
         }
 
         .social-links a:hover .bi-twitter-x,
@@ -297,7 +297,7 @@ section {
 
     .btn-primary:hover,
     .btn-primary:focus {
-        background-color: #2c3135; /* Lite ljusare än primary för hover-effekt */
+        background-color: #2c3135; /* Lite ljusare Ã¤n primary fÃ¶r hover-effekt */
         border-color: #2c3135;
     }
 
@@ -306,18 +306,18 @@ section {
     background-color: var(--primary-color) !important;
 }
 
-/* För att säkerställa att text-primary använder rätt färg */
+/* FÃ¶r att sÃ¤kerstÃ¤lla att text-primary anvÃ¤nder rÃ¤tt fÃ¤rg */
 .text-primary {
     color: var(--primary-color) !important;
 }
-/* För att säkerställa läsbarhet med vit text på den mörka bakgrunden */
+/* FÃ¶r att sÃ¤kerstÃ¤lla lÃ¤sbarhet med vit text pÃ¥ den mÃ¶rka bakgrunden */
 .btn-primary,
 .contact-info,
 .badge.bg-primary {
     color: #fff;
 }
 
-/* För bättre kontrast på små element */
+/* FÃ¶r bÃ¤ttre kontrast pÃ¥ smÃ¥ element */
 .btn-outline-dark {
     border-color: var(--primary-color);
     color: var(--primary-color);
