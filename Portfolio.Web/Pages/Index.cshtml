@@ -5,50 +5,45 @@
 }
 
 <!-- Hero Section -->
-<section class="hero">
+<section class="hero" id="home">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-md-6 hero-text">
-                <h1>Hi, I'm <span class="text-primary">Your Name</span></h1>
-                <h2>Full Stack .NET Developer</h2>
-                <p class="lead">Passionate about building modern web applications with .NET and related technologies.</p>
-                <div class="mt-4">
-                    <a href="#contact" class="btn btn-primary me-3">Contact Me</a>
-                    <a href="~/documents/resume.pdf" download class="btn btn-outline-primary">Download CV</a>
+            <div class="col-lg-6 hero-content" data-aos="fade-right">
+                <span class="badge bg-primary mb-3 px-3 py-2">.NET Developer Student</span>
+                <h1 class="display-4 fw-bold mb-3">Hi, I'm <span class="text-primary">ELEONORA ALMINSON</span></h1>
+                <p class="lead mb-4">I build modern applications with a focus on .NET technologies.</p>
+                
+                <div class="d-flex gap-3">
+                    <a href="#contact" class="btn btn-primary px-4 py-2">Contact</a>
+                    <a href="~/documents/cv.pdf" class="btn btn-outline-dark px-4 py-2" download>Resume</a>
                 </div>
+                
+                @if (Model.WeatherData != null)
+                {
+                    <div class="weather-widget">
+                        <i class="bi bi-geo-alt"></i>
+                        <span>@Model.WeatherData.City: @Model.WeatherData.Main.Temperature°C
+                        @if (Model.WeatherData.Weather.Any())
+                        {
+                            <img src="https://openweathermap.org/img/wn/@(Model.WeatherData.Weather[0].Icon).png" 
+                                 alt="@Model.WeatherData.Weather[0].Description" 
+                                 style="height: 30px; vertical-align: middle;">
+                        }
+                        </span>
+                    </div>
+                }
             </div>
-            <div class="col-md-6 text-center">
-                <img src="~/images/profile.jpg" alt="Developer Portrait" class="img-fluid rounded-circle hero-image">
+            <div class="col-lg-6 text-center" data-aos="fade-left">
+                <img src="~/images/profile.jpg" alt="Your Name" class="img-fluid hero-image">
             </div>
         </div>
     </div>
-</section>
-
-<!-- Weather Widget -->
-<section class="bg-primary text-white py-3">
-    <div class="container">
+    
+    <div class="container position-absolute bottom-0 start-50 translate-middle-x pb-5">
         <div class="text-center">
-            @if (Model.WeatherData != null)
-            {
-                <p class="mb-0">
-                    <i class="fas fa-map-marker-alt me-2"></i> @Model.WeatherData.City:
-                    <i class="fas fa-temperature-high me-2"></i> @Model.WeatherData.Main.Temperature°C
-                    <i class="fas fa-tint ms-3 me-2"></i> @Model.WeatherData.Main.Humidity%
-                    @if (Model.WeatherData.Weather.Any())
-                    {
-                        <span class="ms-3">
-                            <img src="https://openweathermap.org/img/wn/@(Model.WeatherData.Weather[0].Icon).png"
-                                 alt="@Model.WeatherData.Weather[0].Description"
-                                 style="height: 30px; vertical-align: middle;">
-                            @Model.WeatherData.Weather[0].Description
-                        </span>
-                    }
-                </p>
-            }
-            else
-            {
-                <p class="mb-0">Weather data currently unavailable</p>
-            }
+            <a href="#about" class="text-dark">
+                <i class="bi bi-chevron-down fs-3 animate__animated animate__bounce animate__infinite"></i>
+            </a>
         </div>
     </div>
 </section>
@@ -56,152 +51,143 @@
 <!-- About Section -->
 <section id="about" class="py-5">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-4">About Me</h2>
-            <hr class="divider my-4" />
-        </div>
         <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <p class="lead">
-                    I'm a passionate Full Stack Developer with a strong focus on .NET technologies. With experience in building web applications, APIs, and database systems, I enjoy turning complex problems into simple, beautiful, and intuitive solutions.
-                </p>
-                <p>
-                    My journey in programming started at [Education/Event], and since then, I've been continuously learning and improving my skills. I'm particularly interested in [Your Interests], and I'm always looking for new challenges and opportunities to grow.
-                </p>
-                <p>
-                    When I'm not coding, you can find me [Your Hobbies/Interests Outside Coding].
-                </p>
+            <div class="col-lg-6" data-aos="fade-right">
+                <img src="~/images/about.jpg" alt="About Me" class="img-fluid about-image">
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <h2 class="display-6 fw-bold mb-4">About Me</h2>
+                <p class="lead">I'm a passionate fullstack developer with a focus on .NET technologies.</p>
+                <p>With a background in [your background/education], I've developed a strong interest in creating modern, robust, and user-friendly web solutions. My technical skills are combined with strong problem-solving abilities and an eye for detail.</p>
+                <p>When I'm not coding, I spend time [your hobbies/interests]. These activities help me keep my creativity alive and provide new perspectives that I bring into my professional life.</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5 class="fw-bold">Education</h5>
+                        <p>[Your education]</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="fw-bold">Experience</h5>
+                        <p>[Your experience]</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Skills Section -->
-<section id="skills" class="py-5 bg-light">
+<section id="skills" class="skills-section py-5">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-4">My Skills</h2>
-            <hr class="divider my-4" />
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-6 fw-bold">Skills</h2>
+            <p class="lead">Technologies and tools</p>
         </div>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h3 class="card-title text-center">Frontend</h3>
-                        <div class="skills-list text-center">
-                            <div class="skill-item">
-                                <i class="fab fa-html5 fa-3x text-primary"></i>
-                                <p>HTML5</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fab fa-css3-alt fa-3x text-primary"></i>
-                                <p>CSS3</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fab fa-js fa-3x text-primary"></i>
-                                <p>JavaScript</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fab fa-react fa-3x text-primary"></i>
-                                <p>React</p>
-                            </div>
-                        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="bi bi-code-slash"></i>
                     </div>
+                    <h3 class="h5 mb-3">Frontend</h3>
+                    <p>HTML5, CSS3, JavaScript, TypeScript, React, Bootstrap</p>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h3 class="card-title text-center">Backend</h3>
-                        <div class="skills-list text-center">
-                            <div class="skill-item">
-                                <i class="fab fa-microsoft fa-3x text-primary"></i>
-                                <p>C#</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-server fa-3x text-primary"></i>
-                                <p>ASP.NET Core</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-database fa-3x text-primary"></i>
-                                <p>SQL Server</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-cogs fa-3x text-primary"></i>
-                                <p>Entity Framework</p>
-                            </div>
-                        </div>
+            
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="bi bi-server"></i>
                     </div>
+                    <h3 class="h5 mb-3">Backend</h3>
+                    <p>C#, ASP.NET Core, Razor Pages, MVC, Web API, Entity Framework</p>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h3 class="card-title text-center">Tools & Others</h3>
-                        <div class="skills-list text-center">
-                            <div class="skill-item">
-                                <i class="fab fa-git-alt fa-3x text-primary"></i>
-                                <p>Git</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fab fa-github fa-3x text-primary"></i>
-                                <p>GitHub</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-code-branch fa-3x text-primary"></i>
-                                <p>Azure DevOps</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-cloud fa-3x text-primary"></i>
-                                <p>Azure</p>
-                            </div>
-                        </div>
+            
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="bi bi-database"></i>
                     </div>
+                    <h3 class="h5 mb-3">Databases</h3>
+                    <p>SQL Server, MySQL, PostgreSQL, MongoDB</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="bi bi-cloud"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Cloud Services</h3>
+                    <p>Azure, Docker, CI/CD, DevOps</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="bi bi-tools"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Tools</h3>
+                    <p>Git, GitHub, Visual Studio, VS Code, JIRA, Agile/Scrum</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="600">
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="bi bi-lightbulb"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Skills</h3>
+                    <p>Problem Solving, Teamwork, Communication, Creativity</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Projects Section -->
+<!-- Portfolio Section -->
 <section id="portfolio" class="py-5">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-4">My Projects</h2>
-            <hr class="divider my-4" />
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-6 fw-bold">My Projects</h2>
+            <p class="lead">Here are some of my recent work</p>
         </div>
-        <div class="row" id="projects-container">
+        
+        <div class="row g-4" id="projects-container">
             @if (Model.Projects != null && Model.Projects.Any())
             {
                 foreach (var project in Model.Projects)
                 {
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card project-card h-100 shadow-sm">
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                        <div class="project-card">
                             <img src="@(string.IsNullOrEmpty(project.ImageUrl) ? "/images/project-placeholder.jpg" : project.ImageUrl)"
-                                 class="card-img-top" alt="@project.Name">
-                            <div class="card-body">
-                                <h5 class="card-title">@project.Name</h5>
-                                <p class="card-text">@project.Description</p>
-                                <p class="card-text text-muted">
-                                    <small>Tech Stack: @project.TechStack</small>
-                                </p>
-                                <p class="card-text text-muted">
-                                    <small>Date: @project.Date.ToString("MMMM yyyy")</small>
-                                </p>
-                            </div>
-                            <div class="card-footer bg-transparent border-top-0">
-                                @if (!string.IsNullOrEmpty(project.ProjectUrl))
-                                {
-                                    <a href="@project.ProjectUrl" class="btn btn-primary btn-sm me-2" target="_blank">
-                                        <i class="fas fa-external-link-alt me-1"></i> Demo
-                                    </a>
-                                }
-                                @if (!string.IsNullOrEmpty(project.GithubUrl))
-                                {
-                                    <a href="@project.GithubUrl" class="btn btn-outline-secondary btn-sm" target="_blank">
-                                        <i class="fab fa-github me-1"></i> Code
-                                    </a>
-                                }
+                                 class="project-image w-100" alt="@project.Name">
+                            <div class="project-content">
+                                <h3 class="h5 mb-3">@project.Name</h3>
+                                <p>@project.Description</p>
+                                <div class="project-tech">
+                                    @foreach (var tech in project.TechStack.Split(','))
+                                    {
+                                        <span>@tech.Trim()</span>
+                                    }
+                                </div>
+                                <div class="mt-3">
+                                    @if (!string.IsNullOrEmpty(project.ProjectUrl))
+                                    {
+                                        <a href="@project.ProjectUrl" class="btn btn-sm btn-primary me-2" target="_blank">
+                                            <i class="bi bi-link-45deg me-1"></i> Demo
+                                        </a>
+                                    }
+                                    @if (!string.IsNullOrEmpty(project.GithubUrl))
+                                    {
+                                        <a href="@project.GithubUrl" class="btn btn-sm btn-outline-dark" target="_blank">
+                                            <i class="bi bi-github me-1"></i> Code
+                                        </a>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -210,54 +196,47 @@
             else
             {
                 <div class="col-12 text-center">
-                    <p>Loading projects...</p>
                     <div class="spinner-border text-primary" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
+                    <p class="mt-3">Loading projects...</p>
                 </div>
             }
         </div>
     </div>
 </section>
 
-<!-- References Section -->
-<section id="testimonials" class="py-5 bg-light">
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonial-section py-5">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-4">References</h2>
-            <hr class="divider my-4" />
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-6 fw-bold">Testimonials</h2>
         </div>
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="https://via.placeholder.com/80" alt="John Doe" class="rounded-circle me-3">
-                            <div>
-                                <h5 class="card-title mb-0">John Doe</h5>
-                                <p class="card-text text-muted">Senior Developer at XYZ Company</p>
-                            </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://via.placeholder.com/60" alt="John Doe" class="testimonial-image me-3">
+                        <div>
+                            <h5 class="mb-0">John Doe</h5>
+                            <p class="text-muted mb-0">Senior Developer, Company XYZ</p>
                         </div>
-                        <p class="card-text">
-                            "Your Name is an exceptional developer with a great eye for detail. Their problem-solving skills and ability to quickly learn new technologies make them a valuable asset to any team."
-                        </p>
                     </div>
+                    <p>"[A testimonial describing your work from a colleague or supervisor]"</p>
                 </div>
             </div>
-            <div class="col-md-6 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="https://via.placeholder.com/80" alt="Jane Smith" class="rounded-circle me-3">
-                            <div>
-                                <h5 class="card-title mb-0">Jane Smith</h5>
-                                <p class="card-text text-muted">Project Manager at ABC Corp</p>
-                            </div>
+            
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://via.placeholder.com/60" alt="Jane Smith" class="testimonial-image me-3">
+                        <div>
+                            <h5 class="mb-0">Jane Smith</h5>
+                            <p class="text-muted mb-0">Project Manager, Company ABC</p>
                         </div>
-                        <p class="card-text">
-                            "I had the pleasure of working with Your Name on several projects. Their dedication, technical expertise, and collaboration skills are remarkable. They consistently delivered high-quality work ahead of schedule."
-                        </p>
                     </div>
+                    <p>"[Another testimonial describing your collaboration and technical skills]"</p>
                 </div>
             </div>
         </div>
@@ -267,69 +246,69 @@
 <!-- Contact Section -->
 <section id="contact" class="py-5">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-4">Get In Touch</h2>
-            <hr class="divider my-4" />
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-6 fw-bold">Get in touch</h2>
         </div>
-        <div class="row">
-            <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h4 class="mb-4">Contact Info</h4>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="fas fa-envelope fa-2x text-primary me-3"></i>
-                            <p class="mb-0">email@example.com</p>
-                        </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="fas fa-phone fa-2x text-primary me-3"></i>
-                            <p class="mb-0">+12 345 6789</p>
-                        </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="fas fa-map-marker-alt fa-2x text-primary me-3"></i>
-                            <p class="mb-0">Stockholm, Sweden</p>
-                        </div>
-                        <div class="mt-4">
-                            <h5>Follow Me:</h5>
-                            <div class="social-links">
-                                <a href="https://github.com/yourusername" target="_blank" class="me-3">
-                                    <i class="fab fa-github fa-2x"></i>
-                                </a>
-                                <a href="https://linkedin.com/in/yourusername" target="_blank" class="me-3">
-                                    <i class="fab fa-linkedin fa-2x"></i>
-                                </a>
-                                <a href="https://twitter.com/yourusername" target="_blank">
-                                    <i class="fab fa-twitter fa-2x"></i>
-                                </a>
-                            </div>
-                        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-5" data-aos="fade-right">
+                <div class="contact-info">
+                    <h3 class="mb-4">Contact</h3>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-envelope fs-4 me-3"></i>
+                        <p class="mb-0">ellialminson@me.com</p>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-telephone fs-4 me-3"></i>
+                        <p class="mb-0">+46 70 768 38 21</p>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <i class="bi bi-geo-alt fs-4 me-3"></i>
+                        <p class="mb-0">Stockholm, Sweden</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/eleonorareinaalminson" target="_blank"><i class="bi bi-github"></i></a>
+                        <a href="https://www.linkedin.com/in/eleonora-alminson-688707348" target="_blank"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://x.com/ealminson" target="_blank"><i class="bi bi-twitter-x"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <form id="contactForm">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="name" class="form-label">Your Name</label>
+            
+            <div class="col-lg-7" data-aos="fade-left">
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="name" required>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="email" class="form-label">Your Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email</label>
                                     <input type="email" class="form-control" id="email" required>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" id="subject" required>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" id="subject" required>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Message</label>
-                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="message" class="form-label">Message</label>
+                                    <textarea class="form-control" id="message" rows="5" required></textarea>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </form>
-                    </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary px-4 py-2">
+                                    <i class="bi bi-send me-2"></i> Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -338,11 +317,26 @@
 
 @section Scripts {
     <script>
-        // Contact form handling
-        document.getElementById('contactForm').addEventListener('submit', function (e) {
+        // Contact form functionality
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // In a real application, you would send this data to a server
-            alert('Thank you for your message! This is a demo form.');
+            
+            // Simulate form processing
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const subjectInput = document.getElementById('subject');
+            const messageInput = document.getElementById('message');
+            
+            // Simple validation
+            if (!nameInput.value || !emailInput.value || !subjectInput.value || !messageInput.value) {
+                alert('Please fill in all fields!');
+                return;
+            }
+            
+            // Simulate AJAX call and show confirmation message
+            alert('Thank you for your message! I will get back to you as soon as possible.');
+            
+            // Reset the form
             this.reset();
         });
     </script>
