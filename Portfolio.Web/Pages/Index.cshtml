@@ -319,26 +319,57 @@
 @section Scripts {
     <script>
         // Contact form functionality
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            // Simulate form processing
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const subjectInput = document.getElementById('subject');
-            const messageInput = document.getElementById('message');
-            
-            // Simple validation
-            if (!nameInput.value || !emailInput.value || !subjectInput.value || !messageInput.value) {
-                alert('Please fill in all fields!');
+
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+
+            // Visa loading state
+            submitButton.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Skickar...';
+            submitButton.disabled = true;
+
+            // Hämta formulärdata
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                subject: document.getElementById('subject').value.trim(),
+                message: document.getElementById('message').value.trim()
+            };
+
+            // Enkel validering
+            if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+                alert('Vänligen fyll i alla fält!');
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
                 return;
             }
-            
-            // Simulate AJAX call and show confirmation message
-            alert('Thank you for your message! I will get back to you as soon as possible.');
-            
-            // Reset the form
-            this.reset();
+
+            try {
+                const response = await fetch('/api/contact/send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Tack för ditt meddelande! Jag återkommer så snart som möjligt.');
+                    this.reset(); // Rensa formuläret
+                } else {
+                    alert(result.message || 'Ett fel uppstod när meddelandet skulle skickas. Försök igen senare.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Ett fel uppstod när meddelandet skulle skickas. Kontrollera din internetanslutning och försök igen.');
+            } finally {
+                // Återställ knappen
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }
         });
     </script>
 }
