@@ -18,6 +18,7 @@ namespace Portfolio.Web.Services
 
             // Configure base address from appsettings.json
             _client.BaseAddress = new Uri(_configuration["ApiSettings:BaseUrl"] ?? "https://localhost:7078/");
+
         }
 
         public async Task<IEnumerable<Project>> GetProjectsAsync()
