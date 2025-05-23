@@ -62,17 +62,16 @@ public class EmailService : IEmailService
             message.Body = htmlBody;
             message.IsBodyHtml = true;
 
-            // Sätt reply-to till avsändarens e-post för enklare svar
             message.ReplyToList.Add(new MailAddress(contactMessage.Email, contactMessage.Name));
 
             await client.SendMailAsync(message);
 
-            _logger.LogInformation("E-post skickad framgångsrikt till {ToEmail} från {FromEmail}", toEmail, contactMessage.Email);
+            _logger.LogInformation("E-mail successfully sent to {ToEmail} from {FromEmail}", toEmail, contactMessage.Email);
             return true;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Fel vid skickande av e-post från {Email}", contactMessage.Email);
+            _logger.LogError(ex, "Error when sending e-mail from {Email}", contactMessage.Email);
             return false;
         }
     }
