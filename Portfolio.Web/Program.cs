@@ -7,26 +7,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 
-// Database konfiguration - LÄGG TILL DENNA!
+// Database konfiguration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Konfigurera HttpClient för projekttjänsten
+// Konfigurera HttpClient för tjänsterna (detta registrerar automatiskt tjänsterna också)
 builder.Services.AddHttpClient<ProjectsService>();
-
-// Konfigurera HttpClient för vädertjänsten
 builder.Services.AddHttpClient<WeatherService>();
 
-// Registrera tjänster i DI-containern
-builder.Services.AddScoped<ProjectsService>();
-builder.Services.AddScoped<WeatherService>();
-
-builder.Services.AddControllers(); // Lägg till denna rad
+// Registrera övriga tjänster
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Behövs för Azure!
+// Kör migrations på Azure
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider
@@ -46,11 +41,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapControllers();
 app.MapRazorPages();
 
