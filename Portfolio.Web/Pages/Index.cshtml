@@ -10,7 +10,11 @@
         <div class="row align-items-center">
             <div class="col-lg-6 hero-content" data-aos="fade-right">
                 <span class="badge bg-primary mb-3 px-3 py-2">.NET Developer Student</span>
-                <h1 class="display-4 fw-bold mb-3">Hi, I'm <span class="text-primary">Ellie</span></h1>
+                <h1 class="display-4 fw-bold mb-3">Hi, I
+                    <a href="#" class="typewrite" data-period="2000" data-type='[ " am Ellie", " am a Developer", " Love to Code", " Build Solutions" ]'>
+                        <span class="wrap"></span>
+                    </a>
+                </h1>
                 <p class="lead mb-4">Application development with a focus on .NET technologies.</p>
 
                 <div class="d-flex gap-3">
@@ -371,6 +375,61 @@
                 // Återställ knappen
                 submitButton.innerHTML = originalText;
                 submitButton.disabled = false;
+            }
+        });
+    </script>
+    <script>
+        // Typewriter-effekt JavaScript
+        var TxtType = function(el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 10) || 2000;
+            this.txt = '';
+            this.tick();
+            this.isDeleting = false;
+        };
+
+        TxtType.prototype.tick = function() {
+            var i = this.loopNum % this.toRotate.length;
+            var fullTxt = this.toRotate[i];
+
+            if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+            var that = this;
+            var delta = 200 - Math.random() * 100;
+
+            if (this.isDeleting) { delta /= 2; }
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 500;
+            }
+
+            setTimeout(function() {
+                that.tick();
+            }, delta);
+        };
+
+        // Initiera typewriter
+        document.addEventListener('DOMContentLoaded', function() {
+            var elements = document.getElementsByClassName('typewrite');
+            for (var i=0; i<elements.length; i++) {
+                var toRotate = elements[i].getAttribute('data-type');
+                var period = elements[i].getAttribute('data-period');
+                if (toRotate) {
+                  new TxtType(elements[i], JSON.parse(toRotate), period);
+                }
             }
         });
     </script>
