@@ -1,3 +1,4 @@
+// Portfolio.Web/Program.cs
 using Microsoft.EntityFrameworkCore;
 using Portfolio.DataAccessLayer.Data;
 using Portfolio.DataAccessLayer.Repositories;
@@ -5,34 +6,30 @@ using Portfolio.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddRazorPages();
 
-// Database konfiguration
+// Database configuration
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
 
-// Konfigurera HttpClient för tjänsterna (detta registrerar automatiskt tjänsterna också)
+// Repository pattern
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
+// HTTP Services
 builder.Services.AddHttpClient<ProjectsService>();
 builder.Services.AddHttpClient<WeatherService>();
 
-// Registrera övriga tjänster
+// Email service
 builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddControllers();
+
+// Add Response Caching
+builder.Services.AddResponseCaching();
 
 var app = builder.Build();
 
-// Kör migrations på Azure
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider
-        .GetRequiredService<ApplicationDbContext>();
-    if (dbContext.Database.IsRelational())
-    {
-        dbContext.Database.Migrate();
-    }
-}
-
-// Konfigurera HTTP request pipeline
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -41,9 +38,15 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
+// Use Response Caching
+app.UseResponseCaching();
+
 app.UseAuthorization();
-app.MapControllers();
+
 app.MapRazorPages();
+app.MapControllers();
 
 app.Run();

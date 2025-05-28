@@ -1,42 +1,31 @@
-using Microsoft.AspNetCore.Mvc;
+// Portfolio.Web/Pages/Index.cshtml.cs
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Portfolio.Web.Models;
 using Portfolio.Web.Services;
 
-namespace Portfolio.Web.Pages;
-
-public class IndexModel : PageModel
+namespace Portfolio.Web.Pages
 {
-    private readonly ProjectsService _projectsService;
-    private readonly WeatherService _weatherService;
-    private readonly ILogger<IndexModel> _logger;
-
-    public IEnumerable<Project>? Projects { get; private set; }
-    public WeatherData? WeatherData { get; private set; }
-
-    public IndexModel(
-        ProjectsService projectsService,
-        WeatherService weatherService,
-        ILogger<IndexModel> logger)
+    public class IndexModel : PageModel
     {
-        _projectsService = projectsService;
-        _weatherService = weatherService;
-        _logger = logger;
-    }
+        private readonly ProjectsService _projectsService;
+        private readonly WeatherService _weatherService;
 
-    public async Task OnGetAsync()
-    {
-        try
+        public IndexModel(ProjectsService projectsService, WeatherService weatherService)
         {
-            // Hämta projekt från API
-            Projects = await _projectsService.GetProjectsAsync();
-
-            // Hämta väderleksinformation
-            WeatherData = await _weatherService.GetWeatherDataAsync();
+            _projectsService = projectsService;
+            _weatherService = weatherService;
         }
-        catch (Exception ex)
+
+        public IEnumerable<Project> Projects { get; set; } = new List<Project>();
+        public WeatherData? WeatherData { get; set; }
+
+        public async Task OnGetAsync()
         {
-            _logger.LogError(ex, "An error occurred retrieving data for the home page");
+            // Cache headers läggs till i PageModel
+            Response.Headers.Append("Cache-Control", "public, max-age=300");
+
+            Projects = await _projectsService.GetProjectsAsync();
+            WeatherData = await _weatherService.GetWeatherDataAsync();
         }
     }
 }
