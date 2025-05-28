@@ -391,3 +391,29 @@ section {
     color: var(--primary-color);
     font-weight: inherit;
 }
+
+.tech-focus-card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    height: 100%;
+    transition: var(--transition);
+}
+
+    .tech-focus-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .tech-focus-card ul li {
+        font-size: 0.95rem;
+        padding: 2px 0;
+    }
+
+    .tech-focus-card .bi-check-circle-fill {
+        font-size: 1.1rem;
+    }
+
+    .tech-focus-card .bi-arrow-right-circle {
+        font-size: 1.1rem;
+    }
