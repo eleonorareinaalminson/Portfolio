@@ -42,14 +42,14 @@ public class ApplicationDbContext : DbContext
             },
             new Project
             {
-            Id = 3,
-            Name = "Silicon React App",
-            Description = "A modern applikation built with React.",
-            ImageUrl = "/images/projects/silicon-react.jpg",
-            ProjectUrl = "",
-            GithubUrl = "https://github.com/eleonorareinaalminson/silicon-react",
-            TechStack = "React 19, React Router 7, CSS, Bootstrap Icons, Responsive Design",
-            Date = new DateTime(2025, 5, 15)
+                Id = 3,
+                Name = "Silicon Banking App",
+                Description = "A comprehensive banking application showcasing modern React development. Features include dark/light theme switching, responsive design across all devices, secure money transfer functionality, international payment processing, and dynamic FAQ system. Integrates with external APIs for testimonials and newsletter subscription. Built with React 19, Vite, and modern CSS practices including CSS Grid and Flexbox for optimal performance and user experience.",
+                ImageUrl = "/images/projects/silicon-react.jpg",
+                ProjectUrl = "",
+                GithubUrl = "https://github.com/eleonorareinaalminson/silicon-react",
+                TechStack = "React 19, Vite 6, React Router 7, CSS3 Variables, Bootstrap Icons, API Integration, Responsive Grid",
+                Date = new DateTime(2025, 5, 15)
             }
         );
     }
