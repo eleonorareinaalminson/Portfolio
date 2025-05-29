@@ -18,7 +18,6 @@ namespace ProjectsAPI.Controllers
 
         // GET: api/Projects
         [HttpGet]
-        [ResponseCache(Duration = 300)] // 5 minuter
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
             var projects = await _projectRepository.GetAllProjectsAsync();
@@ -27,7 +26,6 @@ namespace ProjectsAPI.Controllers
 
         // GET: api/Projects/5
         [HttpGet("{id}")]
-        [ResponseCache(Duration = 600)] // 10 minuter
         public async Task<ActionResult<Project>> GetProject(int id)
         {
             var project = await _projectRepository.GetProjectByIdAsync(id);
