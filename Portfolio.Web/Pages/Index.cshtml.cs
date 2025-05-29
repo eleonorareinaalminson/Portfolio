@@ -1,31 +1,42 @@
-// Portfolio.Web/Pages/Index.cshtml.cs
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Portfolio.Web.Models;
 using Portfolio.Web.Services;
 
-namespace Portfolio.Web.Pages
+namespace Portfolio.Web.Pages;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly ProjectsService _projectsService;
+    private readonly WeatherService _weatherService;
+    private readonly ILogger<IndexModel> _logger;
+
+    public IEnumerable<Project>? Projects { get; private set; }
+    public WeatherData? WeatherData { get; private set; }
+
+    public IndexModel(
+        ProjectsService projectsService,
+        WeatherService weatherService,
+        ILogger<IndexModel> logger)
     {
-        private readonly ProjectsService _projectsService;
-        private readonly WeatherService _weatherService;
+        _projectsService = projectsService;
+        _weatherService = weatherService;
+        _logger = logger;
+    }
 
-        public IndexModel(ProjectsService projectsService, WeatherService weatherService)
+    public async Task OnGetAsync()
+    {
+        try
         {
-            _projectsService = projectsService;
-            _weatherService = weatherService;
-        }
-
-        public IEnumerable<Project> Projects { get; set; } = new List<Project>();
-        public WeatherData? WeatherData { get; set; }
-
-        public async Task OnGetAsync()
-        {
-            // Cache headers läggs till i PageModel
-            Response.Headers.Append("Cache-Control", "public, max-age=300");
-
+            // Hämta projekt från API
             Projects = await _projectsService.GetProjectsAsync();
+
+            // Hämta väderleksinformation
             WeatherData = await _weatherService.GetWeatherDataAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred retrieving data for the home page");
         }
     }
 }
