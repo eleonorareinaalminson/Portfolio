@@ -330,61 +330,6 @@
 
 @section Scripts {
     <script>
-        // Contact form functionality
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.innerHTML;
-
-            // Visa loading state
-            submitButton.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Skickar...';
-            submitButton.disabled = true;
-
-            // Hämta formulärdata
-            const formData = {
-                name: document.getElementById('name').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                subject: document.getElementById('subject').value.trim(),
-                message: document.getElementById('message').value.trim()
-            };
-
-            // Enkel validering
-            if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-                alert('Vänligen fyll i alla fält!');
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-                return;
-            }
-
-            try {
-                const response = await fetch('/api/contact/send', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
-                    alert('Tack för ditt meddelande! Jag återkommer så snart som möjligt.');
-                    this.reset(); // Rensa formuläret
-                } else {
-                    alert(result.message || 'Ett fel uppstod när meddelandet skulle skickas. Försök igen senare.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Ett fel uppstod när meddelandet skulle skickas. Kontrollera din internetanslutning och försök igen.');
-            } finally {
-                // Återställ knappen
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-            }
-        });
-    </script>
-    <script>
         // Typewriter-effekt JavaScript
         var TxtType = function(el, toRotate, period) {
             this.toRotate = toRotate;
@@ -437,6 +382,9 @@
                   new TxtType(elements[i], JSON.parse(toRotate), period);
                 }
             }
+
+            // Notification för när validation.js laddas
+            console.log('Portfolio validation system loaded');
         });
     </script>
 }
