@@ -26,7 +26,6 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader());
 });
 
-// Swagger removed - not needed for production API
 
 var app = builder.Build();
 
