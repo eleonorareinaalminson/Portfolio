@@ -521,3 +521,93 @@ section {
         padding: 1rem;
     }
 }
+
+/* Lägg till detta i din site.css fil */
+
+/* Senapsgul accentfärg variabel */
+:root {
+    --primary-color: #212529;
+    --secondary-color: #6c757d;
+    --light-bg: #f8f9fa;
+    --dark-bg: #212529;
+    --mustard-accent: #D4A574; /* Senapsgul accentfärg */
+    --border-radius: 8px;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Typewriter-effekt med senapsgul accent på sista ordet */
+.typewrite-accent {
+    color: var(--mustard-accent) !important;
+    font-weight: 700;
+}
+
+/* Uppdaterad typewriter cursor för accentfärg */
+.typewrite > .wrap {
+    border-right: 0.08em solid var(--primary-color);
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+/* När accent är aktivt, ändra cursor-färg också */
+.typewrite.accent-active > .wrap {
+    border-right-color: var(--mustard-accent);
+}
+
+@keyframes blink-caret {
+    from, to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: inherit;
+    }
+}
+
+/* Social media ikon med senapsgul accent (Instagram som exempel) */
+.social-links a.mustard-accent,
+footer a.mustard-accent {
+    background-color: var(--mustard-accent) !important;
+    color: #fff !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(212, 165, 116, 0.4);
+}
+
+    .social-links a.mustard-accent:hover,
+    footer a.mustard-accent:hover {
+        background-color: #c19660 !important; /* Mörkare senapsgul vid hover */
+        color: #fff !important;
+        transform: scale(1.15) translateY(-3px);
+        box-shadow: 0 6px 12px rgba(212, 165, 116, 0.6);
+    }
+
+/* Alternativt: Gör LinkedIn-ikonen senapsgul istället */
+.social-links a:hover .bi-linkedin.mustard-accent,
+footer a:hover .bi-linkedin.mustard-accent {
+    color: var(--mustard-accent) !important;
+}
+
+/* Ytterligare accent-element för helhetskänsla */
+.badge.bg-mustard {
+    background-color: var(--mustard-accent) !important;
+    color: #fff !important;
+}
+
+.btn-mustard {
+    background-color: var(--mustard-accent);
+    border-color: var(--mustard-accent);
+    color: #fff;
+}
+
+    .btn-mustard:hover,
+    .btn-mustard:focus {
+        background-color: #c19660;
+        border-color: #c19660;
+        color: #fff;
+    }
+
+/* Accent för projektkort hover-effekt */
+.project-card:hover .project-tech span:first-child {
+    background-color: var(--mustard-accent);
+    color: #fff;
+    transform: scale(1.05);
+}
