@@ -330,7 +330,7 @@
 
 @section Scripts {
     <script>
-        // Typewriter-effekt JavaScript
+        // Typewriter-effekt med senapsgul accent på sista ordet
         var TxtType = function(el, toRotate, period) {
             this.toRotate = toRotate;
             this.el = el;
@@ -351,7 +351,16 @@
                 this.txt = fullTxt.substring(0, this.txt.length + 1);
             }
 
-            this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+            // Alla ord som skrivs ut ska vara i senapsgul färg
+            var displayTxt = this.txt;
+            if (displayTxt.length > 0) {
+                displayTxt = '<span class="typewrite-accent">' + displayTxt + '</span>';
+                this.el.classList.add('accent-active');
+            } else {
+                this.el.classList.remove('accent-active');
+            }
+
+            this.el.innerHTML = '<span class="wrap">' + displayTxt + '</span>';
 
             var that = this;
             var delta = 200 - Math.random() * 100;
@@ -365,6 +374,7 @@
                 this.isDeleting = false;
                 this.loopNum++;
                 delta = 500;
+                this.el.classList.remove('accent-active');
             }
 
             setTimeout(function() {
@@ -383,8 +393,13 @@
                 }
             }
 
-            // Notification för när validation.js laddas
-            console.log('Portfolio validation system loaded');
+            // Lägg till senapsgul accent på Instagram-ikonen (eller välj en annan)
+            const instagramIcon = document.querySelector('a[href*="instagram"] i');
+            if (instagramIcon) {
+                instagramIcon.parentElement.classList.add('mustard-accent');
+            }
+
+            console.log('Portfolio validation system loaded with mustard accent');
         });
     </script>
 }
