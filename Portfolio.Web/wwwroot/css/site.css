@@ -611,3 +611,32 @@ footer a:hover .bi-linkedin.mustard-accent {
     color: #fff;
     transform: scale(1.05);
 }
+
+/* extra styling av navbar-brand */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color) !important;
+    font-family: 'Courier New', monospace; /* Ger en kod-känsla */
+    letter-spacing: -0.5px;
+    transition: var(--transition);
+}
+
+    .navbar-brand:hover {
+        color: var(--mustard-accent) !important;
+        transform: scale(1.02);
+    }
+
+/* Alternativ stil med färgkodade tecken */
+.navbar-brand-styled {
+    font-family: 'Courier New', monospace;
+}
+
+    .navbar-brand-styled .tag-bracket {
+        color: var(--mustard-accent);
+        font-weight: 800;
+    }
+
+    .navbar-brand-styled .name-part {
+        color: var(--primary-color);
+    }
