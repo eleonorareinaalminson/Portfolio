@@ -26,12 +26,12 @@
                     <div class="weather-widget">
                         <i class="bi bi-geo-alt"></i>
                         <span>
-                            @Model.WeatherData.City: @Model.WeatherData.Main.Temperature°C
+                            <span style="font-weight: 700;">@Model.WeatherData.City: </span> <span style="color: var(--mustard-accent); font-weight: 700;">@Math.Round(Model.WeatherData.Main.Temperature)°C</span>
                             @if (Model.WeatherData.Weather.Any())
                             {
                                 <img src="https://openweathermap.org/img/wn/@(Model.WeatherData.Weather[0].Icon).png"
                                      alt="@Model.WeatherData.Weather[0].Description"
-                                     style="height: 30px; vertical-align: middle;">
+                                     style="height: 30px; vertical-align: middle; margin-left: 6px;">
                             }
                         </span>
                     </div>
