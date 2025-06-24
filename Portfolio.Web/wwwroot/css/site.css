@@ -88,21 +88,35 @@ section {
         transform: scale(1.05);
     }
 
-/* Weather Widget */
 .weather-widget {
-    background-color: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
     border-radius: var(--border-radius);
     padding: 10px 15px;
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
     display: inline-flex;
     align-items: center;
     margin-top: 20px;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
 }
+
+    .weather-widget:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 249, 250, 0.92) 100%);
+    }
 
     .weather-widget i {
         margin-right: 10px;
         font-size: 1.5rem;
         color: var(--primary-color);
+        transition: var(--transition);
+    }
+
+    .weather-widget:hover i {
+        color: var(--mustard-accent);
+        transform: scale(1.05);
     }
 
 /* About Section */
@@ -392,10 +406,6 @@ section {
     font-weight: inherit;
 }
 
-/* ==========================================================================
-   VALIDATION STYLES - Lägg till detta i slutet av din site.css
-   ========================================================================== */
-
 /* Enhanced Form Validation Styles */
 .form-control.is-valid {
     border-color: #28a745;
@@ -522,8 +532,6 @@ section {
     }
 }
 
-/* Lägg till detta i din site.css fil */
-
 /* Senapsgul accentfärg variabel */
 :root {
     --primary-color: #212529;
@@ -598,12 +606,12 @@ footer a:hover .bi-linkedin.mustard-accent {
     color: #fff;
 }
 
-    .btn-mustard:hover,
-    .btn-mustard:focus {
-        background-color: #c19660;
-        border-color: #c19660;
-        color: #fff;
-    }
+.btn-mustard:hover,
+.btn-mustard:focus {
+    background-color: #c19660;
+    border-color: #c19660;
+    color: #fff;
+}
 
 /* Accent för projektkort hover-effekt */
 .project-card:hover .project-tech span:first-child {
@@ -622,21 +630,22 @@ footer a:hover .bi-linkedin.mustard-accent {
     transition: var(--transition);
 }
 
-    .navbar-brand:hover {
-        color: var(--mustard-accent) !important;
-        transform: scale(1.02);
-    }
+.navbar-brand:hover {
+    color: var(--mustard-accent) !important;
+    transform: scale(1.02);
+}
 
 /* Alternativ stil med färgkodade tecken */
 .navbar-brand-styled {
     font-family: 'Courier New', monospace;
 }
 
-    .navbar-brand-styled .tag-bracket {
-        color: var(--mustard-accent);
-        font-weight: 800;
-    }
+.navbar-brand-styled .tag-bracket {
+    color: var(--mustard-accent);
+    font-weight: 800;
+}
 
-    .navbar-brand-styled .name-part {
-        color: var(--primary-color);
-    }
+.navbar-brand-styled .name-part {
+    color: var(--primary-color);
+}
+
