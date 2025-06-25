@@ -56,7 +56,7 @@ namespace Portfolio.Web.Controllers
                     _logger.LogInformation("Kontaktmeddelande skickat från {Email}", contactMessage.Email);
                     return Ok(new
                     {
-                        message = "Meddelandet har skickats! Jag återkommer så snart som möjligt.",
+                        message = "The message has been sent! I will get back to you as soon as possible.",
                         success = true
                     });
                 }
@@ -65,7 +65,7 @@ namespace Portfolio.Web.Controllers
                     _logger.LogWarning("Misslyckades att skicka kontaktmeddelande från {Email}", contactMessage.Email);
                     return StatusCode(500, new
                     {
-                        message = "Ett fel uppstod när meddelandet skulle skickas. Försök igen senare.",
+                        message = "An error occurred while sending the message. Please try again later.",
                         success = false
                     });
                 }
@@ -75,7 +75,7 @@ namespace Portfolio.Web.Controllers
                 _logger.LogError(ex, "Oväntat fel vid skickande av kontaktmeddelande från {Email}", contactMessage.Email);
                 return StatusCode(500, new
                 {
-                    message = "Ett oväntat fel uppstod. Försök igen senare.",
+                    message = "An unexpected error occurred. Please try again later.",
                     success = false
                 });
             }
