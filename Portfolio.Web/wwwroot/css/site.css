@@ -649,3 +649,108 @@ footer a:hover .bi-linkedin.mustard-accent {
     color: var(--primary-color);
 }
 
+/* Floating Labels för kontaktformulär */
+.floating-label {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+    .floating-label .form-control-floating {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #e9ecef;
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        outline: none;
+        background: transparent;
+        transition: all 0.3s ease;
+        resize: vertical; /* För textarea */
+    }
+
+    .floating-label label {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        font-size: 1rem;
+        color: var(--secondary-color);
+        pointer-events: none;
+        transition: all 0.3s ease;
+        background: white;
+        padding: 0 0.5rem;
+        font-weight: 500;
+    }
+
+    .floating-label .form-control-floating:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(33, 37, 41, 0.1);
+    }
+
+        .floating-label .form-control-floating:focus + label,
+        .floating-label .form-control-floating:not(:placeholder-shown) + label {
+            top: -0.5rem;
+            left: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+    /* Validation states för floating labels */
+    .floating-label .form-control-floating.is-valid {
+        border-color: #28a745;
+    }
+
+        .floating-label .form-control-floating.is-valid:focus + label,
+        .floating-label .form-control-floating.is-valid:not(:placeholder-shown) + label {
+            color: #28a745;
+        }
+
+    .floating-label .form-control-floating.is-invalid {
+        border-color: #dc3545;
+    }
+
+        .floating-label .form-control-floating.is-invalid:focus + label,
+        .floating-label .form-control-floating.is-invalid:not(:placeholder-shown) + label {
+            color: #dc3545;
+        }
+
+/* Uppdatera contact form styling */
+.contact-form {
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    background-color: #fff;
+}
+
+    .contact-form .btn-primary {
+        padding: 1rem 2rem;
+        font-weight: 600;
+        border-radius: var(--border-radius);
+        transition: all 0.3s ease;
+    }
+
+        .contact-form .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(33, 37, 41, 0.3);
+        }
+
+/* Responsiv design för mobila enheter */
+@media (max-width: 768px) {
+    .floating-label {
+        margin-bottom: 1.25rem;
+    }
+
+        .floating-label .form-control-floating {
+            padding: 0.875rem;
+            font-size: 0.9rem;
+        }
+
+        .floating-label label {
+            font-size: 0.9rem;
+            top: 0.875rem;
+        }
+
+        .floating-label .form-control-floating:focus + label,
+        .floating-label .form-control-floating:not(:placeholder-shown) + label {
+            font-size: 0.8rem;
+        }
+}

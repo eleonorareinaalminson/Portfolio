@@ -1,6 +1,4 @@
-﻿// Portfolio.Web/wwwroot/js/validation.js
-// Client-Side Validation System för Portfolio
-
+﻿// Client-Side Validation System för Portfolio
 class PortfolioValidator {
     constructor() {
         this.errors = {};
@@ -24,16 +22,16 @@ class PortfolioValidator {
 
         // Real-time validation på varje fält
         const fields = ['name', 'email', 'subject', 'message'];
-        
+
         fields.forEach(fieldName => {
             const field = document.getElementById(fieldName);
             if (field) {
                 // Validera när användaren lämnar fältet
                 field.addEventListener('blur', () => this.validateField(fieldName));
-                
+
                 // Rensa error när användaren börjar skriva igen
                 field.addEventListener('input', () => this.clearFieldError(fieldName));
-                
+
                 // Visa teckenräknare för vissa fält
                 if (fieldName === 'message' || fieldName === 'subject') {
                     this.addCharacterCounter(field);
@@ -59,55 +57,55 @@ class PortfolioValidator {
         switch (fieldName) {
             case 'name':
                 if (!value) {
-                    errorMessage = 'Namn är obligatoriskt';
+                    errorMessage = 'Name is required';
                     isValid = false;
                 } else if (value.length < 2) {
-                    errorMessage = 'Namnet måste vara minst 2 tecken';
+                    errorMessage = 'Name must be at least 2 characters';
                     isValid = false;
                 } else if (value.length > 100) {
-                    errorMessage = 'Namnet får inte vara längre än 100 tecken';
+                    errorMessage = 'Name cannot be longer than 100 characters';
                     isValid = false;
                 } else if (!/^[a-zA-ZåäöÅÄÖ\s\-'\.]+$/.test(value)) {
-                    errorMessage = 'Namnet får endast innehålla bokstäver, mellanslag och bindestreck';
+                    errorMessage = 'Name can only contain letters, spaces and hyphens';
                     isValid = false;
                 }
                 break;
 
             case 'email':
                 if (!value) {
-                    errorMessage = 'E-postadress är obligatorisk';
+                    errorMessage = 'Email address is required';
                     isValid = false;
                 } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                    errorMessage = 'Ange en giltig e-postadress';
+                    errorMessage = 'Please enter a valid email address';
                     isValid = false;
                 } else if (value.length > 320) {
-                    errorMessage = 'E-postadressen är för lång';
+                    errorMessage = 'Email address is too long';
                     isValid = false;
                 }
                 break;
 
             case 'subject':
                 if (!value) {
-                    errorMessage = 'Ämne är obligatoriskt';
+                    errorMessage = 'Subject is required';
                     isValid = false;
                 } else if (value.length < 3) {
-                    errorMessage = 'Ämnet måste vara minst 3 tecken';
+                    errorMessage = 'Subject must be at least 3 characters';
                     isValid = false;
                 } else if (value.length > 200) {
-                    errorMessage = 'Ämnet får inte vara längre än 200 tecken';
+                    errorMessage = 'Subject cannot be longer than 200 characters';
                     isValid = false;
                 }
                 break;
 
             case 'message':
                 if (!value) {
-                    errorMessage = 'Meddelande är obligatoriskt';
+                    errorMessage = 'Message is required';
                     isValid = false;
                 } else if (value.length < 10) {
-                    errorMessage = 'Meddelandet måste vara minst 10 tecken';
+                    errorMessage = 'Message must be at least 10 characters';
                     isValid = false;
                 } else if (value.length > 1000) {
-                    errorMessage = 'Meddelandet får inte vara längre än 1000 tecken';
+                    errorMessage = 'Message cannot be longer than 1000 characters';
                     isValid = false;
                 }
                 break;
@@ -138,23 +136,25 @@ class PortfolioValidator {
     showFieldError(fieldName, message) {
         const field = document.getElementById(fieldName);
         const errorContainer = this.getOrCreateErrorContainer(fieldName);
-        
+
+        // För floating labels, lägg till klasser på input-elementet
         field.classList.add('is-invalid');
         field.classList.remove('is-valid');
-        
+
         errorContainer.textContent = message;
         errorContainer.style.display = 'block';
-        
+
         this.errors[fieldName] = message;
     }
 
     showFieldSuccess(fieldName) {
         const field = document.getElementById(fieldName);
         const errorContainer = this.getOrCreateErrorContainer(fieldName);
-        
+
+        // För floating labels, lägg till klasser på input-elementet
         field.classList.add('is-valid');
         field.classList.remove('is-invalid');
-        
+
         errorContainer.style.display = 'none';
         delete this.errors[fieldName];
     }
@@ -162,7 +162,7 @@ class PortfolioValidator {
     clearFieldError(fieldName) {
         const field = document.getElementById(fieldName);
         const errorContainer = this.getOrCreateErrorContainer(fieldName);
-        
+
         field.classList.remove('is-invalid', 'is-valid');
         errorContainer.style.display = 'none';
         delete this.errors[fieldName];
@@ -170,33 +170,54 @@ class PortfolioValidator {
 
     getOrCreateErrorContainer(fieldName) {
         let errorContainer = document.getElementById(fieldName + '-error');
-        
+
         if (!errorContainer) {
             errorContainer = document.createElement('div');
             errorContainer.id = fieldName + '-error';
             errorContainer.className = 'invalid-feedback';
             errorContainer.style.display = 'none';
-            
+            errorContainer.style.marginTop = '0.5rem';
+            errorContainer.style.fontSize = '0.875rem';
+            errorContainer.style.color = '#dc3545';
+
             const field = document.getElementById(fieldName);
-            field.parentNode.appendChild(errorContainer);
+            // För floating labels: lägg till error efter floating-label div
+            const floatingLabelDiv = field.closest('.floating-label');
+            if (floatingLabelDiv) {
+                // Om det finns en floating-label div, lägg error efter den
+                floatingLabelDiv.parentNode.insertBefore(errorContainer, floatingLabelDiv.nextSibling);
+            } else {
+                // Fallback för vanliga formulär
+                field.parentNode.appendChild(errorContainer);
+            }
         }
-        
+
         return errorContainer;
     }
 
     addCharacterCounter(field) {
         const maxLength = field.id === 'message' ? 1000 : 200;
-        
+
         const counter = document.createElement('small');
         counter.className = 'form-text text-muted character-counter';
         counter.id = field.id + '-counter';
-        
-        field.parentNode.appendChild(counter);
-        
+        counter.style.marginTop = '0.25rem';
+        counter.style.display = 'block';
+        counter.style.textAlign = 'right';
+        counter.style.fontSize = '0.75rem';
+
+        // För floating labels: lägg till counter efter floating-label div
+        const floatingLabelDiv = field.closest('.floating-label');
+        if (floatingLabelDiv) {
+            floatingLabelDiv.parentNode.insertBefore(counter, floatingLabelDiv.nextSibling);
+        } else {
+            field.parentNode.appendChild(counter);
+        }
+
         const updateCounter = () => {
             const remaining = maxLength - field.value.length;
-            counter.textContent = `${field.value.length}/${maxLength} tecken`;
-            
+            counter.textContent = `${field.value.length}/${maxLength} characters`;
+
             if (remaining < 50) {
                 counter.classList.add('text-warning');
                 counter.classList.remove('text-muted');
@@ -205,7 +226,7 @@ class PortfolioValidator {
                 counter.classList.remove('text-warning');
             }
         };
-        
+
         field.addEventListener('input', updateCounter);
         updateCounter(); // Initial count
     }
@@ -215,13 +236,13 @@ class PortfolioValidator {
 
         // Client-side validation först
         if (!this.validateAllFields()) {
-            this.showNotification('Vänligen korrigera felen innan du skickar formuläret.', 'error');
+            this.showNotification('Please correct the errors before submitting the form.', 'error');
             return;
         }
 
         const form = e.target;
         const submitButton = form.querySelector('button[type="submit"]');
-        
+
         // Visa loading state
         this.setSubmitLoading(submitButton, true);
 
@@ -253,12 +274,12 @@ class PortfolioValidator {
                 if (result.errors) {
                     this.handleServerErrors(result.errors);
                 }
-                this.showNotification(result.message || 'Ett fel uppstod. Försök igen.', 'error');
+                this.showNotification(result.message || 'An error occurred. Please try again.', 'error');
             }
 
         } catch (error) {
             console.error('Network error:', error);
-            this.showNotification('Nätverksfel. Kontrollera din internetanslutning och försök igen.', 'error');
+            this.showNotification('Network error. Please check your internet connection and try again.', 'error');
         } finally {
             this.setSubmitLoading(submitButton, false);
         }
@@ -275,14 +296,14 @@ class PortfolioValidator {
 
     setSubmitLoading(button, isLoading) {
         const originalText = button.dataset.originalText || button.innerHTML;
-        
+
         if (!button.dataset.originalText) {
             button.dataset.originalText = originalText;
         }
 
         if (isLoading) {
             button.disabled = true;
-            button.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Skickar...';
+            button.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Sending...';
         } else {
             button.disabled = false;
             button.innerHTML = originalText;
@@ -302,7 +323,7 @@ class PortfolioValidator {
             const field = document.getElementById(fieldId);
             if (field) {
                 const maxLength = fieldId === 'message' ? 1000 : 200;
-                counter.textContent = `0/${maxLength} tecken`;
+                counter.textContent = `0/${maxLength} characters`;
                 counter.classList.add('text-muted');
                 counter.classList.remove('text-warning');
             }
