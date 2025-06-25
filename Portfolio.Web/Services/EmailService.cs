@@ -41,7 +41,6 @@ public class EmailService : IEmailService
             var htmlBody = $@"
                     <html>
                     <body>
-                        <h2>Nytt meddelande från ditt portfolio</h2>
                         <p><strong>Från:</strong> {contactMessage.Name}</p>
                         <p><strong>E-post:</strong> {contactMessage.Email}</p>
                         <p><strong>Ämne:</strong> {contactMessage.Subject}</p>
